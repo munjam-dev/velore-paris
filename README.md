@@ -20,13 +20,12 @@ A premium e-commerce website for luxury fragrances built with React, Vite, and T
 - **TailwindCSS** - Utility-first CSS framework
 - **React Router** - Client-side routing
 - **Framer Motion** - Animation library
-- **Ant Design Icons** - Icon library
 
 ## 📦 Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/munjam-dev/velore-paris.git
 cd velore-paris
 ```
 
