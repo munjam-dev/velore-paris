@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-velore-cream text-velore-dark font-montserrat;
+  }
+  
+  h1, h2, h3 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-velore-gold text-white px-8 py-4 rounded-lg font-semibold hover:bg-yellow-600 transition-all duration-300 transform hover:scale-105 shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-velore-gold text-velore-gold px-8 py-4 rounded-lg font-semibold hover:bg-velore-gold hover:text-white transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .product-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2;
+  }
+  
+  .luxury-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #F8F6F3 50%, #1a1a1a 100%);
+  }
+}
