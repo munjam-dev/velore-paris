@@ -7,21 +7,47 @@ import AboutSection from './components/AboutSection';
 import ReviewsSection from './components/ReviewsSection';
 import NewsletterSection from './components/NewsletterSection';
 import Footer from './components/Footer';
+
+// Pages
+import ShopPage from './pages/ShopPage';
+import CollectionsPage from './pages/CollectionsPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import CartPage from './pages/CartPage';
+import ProductDetail from './pages/ProductDetail';
+
 import './App.css';
+
+function HomePage({ cartItems, addToCart }) {
+  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  return (
+    <>
+      <Header cartItemsCount={cartItemsCount} />
+      <Hero />
+      <FeaturedProducts addToCart={addToCart} />
+      <AboutSection />
+      <ReviewsSection />
+      <NewsletterSection />
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    // Load cart from localStorage on mount
     const savedCart = localStorage.getItem('veloreCart');
     if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
+      try {
+        setCartItems(JSON.parse(savedCart));
+      } catch (e) {
+        setCartItems([]);
+      }
     }
   }, []);
 
   useEffect(() => {
-    // Save cart to localStorage whenever it changes
     localStorage.setItem('veloreCart', JSON.stringify(cartItems));
   }, [cartItems]);
 
@@ -55,108 +81,23 @@ function App() {
     }
   };
 
-  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const sharedProps = { cartItems, addToCart, removeFromCart, updateQuantity };
 
   return (
     <Router>
-      <div className="min-h-screen bg-velore-cream">
-        <Header cartItemsCount={cartItemsCount} />
-        
+      <div className="min-h-screen bg-[#050505]">
         <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <FeaturedProducts />
-              <AboutSection />
-              <ReviewsSection />
-              <NewsletterSection />
-              <Footer />
-            </>
-          } />
-          
-          {/* Add other routes as needed */}
-          <Route path="/shop" element={
-            <>
-              <div className="py-20">
-                <div className="container mx-auto px-4">
-                  <h1 className="text-4xl font-playfair font-bold text-center mb-8">Shop All Products</h1>
-                  <FeaturedProducts />
-                </div>
-              </div>
-              <Footer />
-            </>
-          } />
-          
-          <Route path="/about" element={
-            <>
-              <div className="py-20">
-                <div className="container mx-auto px-4">
-                  <AboutSection />
-                </div>
-              </div>
-              <Footer />
-            </>
-          } />
-          
-          <Route path="/collections" element={
-            <>
-              <div className="py-20">
-                <div className="container mx-auto px-4">
-                  <h1 className="text-4xl font-playfair font-bold text-center mb-8">Our Collections</h1>
-                  <FeaturedProducts />
-                </div>
-              </div>
-              <Footer />
-            </>
-          } />
-          
-          <Route path="/contact" element={
-            <>
-              <div className="py-20">
-                <div className="container mx-auto px-4">
-                  <h1 className="text-4xl font-playfair font-bold text-center mb-8">Contact Us</h1>
-                  <div className="max-w-2xl mx-auto text-center">
-                    <p className="text-lg mb-8">Get in touch with us for any inquiries about our luxury fragrances.</p>
-                    <div className="bg-white rounded-xl p-8 shadow-lg">
-                      <p>Email: support@veloreparis.com</p>
-                      <p>Phone: +91 9640680142</p>
-                      <p>Location: Hyderabad, India</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Footer />
-            </>
-          } />
-          
-          <Route path="/cart" element={
-            <>
-              <div className="py-20">
-                <div className="container mx-auto px-4">
-                  <h1 className="text-4xl font-playfair font-bold text-center mb-8">Shopping Cart</h1>
-                  {cartItems.length === 0 ? (
-                    <div className="text-center py-12">
-                      <p className="text-xl text-gray-600">Your cart is empty</p>
-                    </div>
-                  ) : (
-                    <div className="max-w-4xl mx-auto">
-                      {cartItems.map(item => (
-                        <div key={item.id} className="bg-white rounded-lg p-6 mb-4 shadow-md">
-                          <h3>{item.name}</h3>
-                          <p>₹{item.price} x {item.quantity}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <Footer />
-            </>
-          } />
+          <Route path="/" element={<HomePage {...sharedProps} />} />
+          <Route path="/shop" element={<ShopPage {...sharedProps} />} />
+          <Route path="/collections" element={<CollectionsPage {...sharedProps} />} />
+          <Route path="/about" element={<AboutPage {...sharedProps} />} />
+          <Route path="/contact" element={<ContactPage {...sharedProps} />} />
+          <Route path="/cart" element={<CartPage {...sharedProps} />} />
+          <Route path="/product/:id" element={<ProductDetail {...sharedProps} />} />
         </Routes>
       </div>
     </Router>
   );
 }
 
-export default App
+export default App;

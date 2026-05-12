@@ -1,5 +1,10 @@
-version: "1"
-buildCommand: "npm run build"
-startCommand: "npm start"
-publishDirectory: "dist"
-nodeVersion: "18"
+services:
+  - type: web
+    name: velore-paris
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

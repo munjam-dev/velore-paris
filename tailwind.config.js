@@ -14,6 +14,9 @@ export default {
         'velore-gold': '#D4AF37',
         'velore-dark': '#1a1a1a',
         'velore-cream': '#F8F6F3',
+        gray: {
+          200: '#e5e4e7',
+        }
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-in-out',

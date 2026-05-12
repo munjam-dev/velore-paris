@@ -1,114 +1,205 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const ReviewsSection = () => {
-  const reviews = [
-    {
-      name: "Rahul K.",
-      rating: 5,
-      comment: "Midnight Oud smells incredibly luxurious and lasts all day.",
-      product: "Midnight Oud"
-    },
-    {
-      name: "Sneha P.",
-      rating: 5,
-      comment: "Velvet Rose is elegant and perfect for evening wear.",
-      product: "Velvet Rose"
-    },
-    {
-      name: "Arjun M.",
-      rating: 5,
-      comment: "Ocean Breeze gives a super fresh premium vibe.",
-      product: "Ocean Breeze"
-    }
-  ];
+const reviews = [
+  {
+    name: 'Rahul K.',
+    location: 'Mumbai',
+    rating: 5,
+    comment: 'Midnight Oud is everything I wanted in a perfume. The sillage is extraordinary — people ask about it hours later. Truly world-class.',
+    product: 'Midnight Oud',
+  },
+  {
+    name: 'Sneha P.',
+    location: 'Hyderabad',
+    rating: 5,
+    comment: 'Velvet Rose is my signature now. Delicate yet powerful — the kind of fragrance that makes a room remember you long after you leave.',
+    product: 'Velvet Rose',
+  },
+  {
+    name: 'Arjun M.',
+    location: 'Bangalore',
+    rating: 5,
+    comment: "I've worn designer fragrances for years. Royal Amber from VELORÉ PARIS stands above them all. Exceptional depth, incredible longevity.",
+    product: 'Royal Amber',
+  },
+];
 
+const StarIcon = () => (
+  <svg style={{ width: 14, height: 14, color: '#D4AF37' }} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>
+);
+
+const ReviewsSection = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
+    <section style={{ padding: '6rem 0', backgroundColor: '#050505', position: 'relative', overflow: 'hidden' }}>
+      {/* Decorative vertical lines */}
+      <div style={{ position: 'absolute', left: '25%', top: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.08), transparent)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', right: '25%', top: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, transparent, rgba(212,175,55,0.08), transparent)', pointerEvents: 'none' }} />
+
+      <div className="velore-container" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          style={{ textAlign: 'center', marginBottom: '5rem' }}
         >
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold text-velore-dark mb-4">
-            Customer Reviews
-          </h2>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Don't just take our word for it. Hear what our customers have to say about their VELORÉ PARIS experience.
+          <div className="section-label" style={{ marginBottom: '1.5rem' }}>
+            <span>Client Testimonials</span>
+          </div>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+            fontWeight: 700,
+            color: '#ffffff',
+            marginBottom: 16,
+          }}>Words of Our Patrons</h2>
+          <p style={{
+            fontFamily: "'Montserrat', sans-serif",
+            fontSize: 15,
+            fontWeight: 300,
+            color: 'rgba(255,255,255,0.45)',
+            maxWidth: 480,
+            margin: '0 auto',
+            lineHeight: 1.8,
+          }}>
+            The highest compliment is when our fragrances become part of someone's identity.
           </p>
-          <div className="w-24 h-1 bg-velore-gold mx-auto mt-6"></div>
         </motion.div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Review cards */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 1,
+        }}>
           {reviews.map((review, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.7, delay: index * 0.12 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-velore-cream rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500"
+              whileHover={{ y: -6 }}
+              style={{
+                background: '#0f0f0f',
+                border: '1px solid rgba(212,175,55,0.1)',
+                padding: '2.5rem',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'border-color 0.4s ease',
+              }}
             >
-              {/* Rating Stars */}
-              <div className="flex text-yellow-400 mb-4">
-                {[...Array(review.rating)].map((_, i) => (
-                  <span key={i} className="text-2xl">★</span>
-                ))}
+              {/* Large quote mark */}
+              <div style={{
+                position: 'absolute',
+                top: 12,
+                right: 20,
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 80,
+                color: 'rgba(212,175,55,0.06)',
+                lineHeight: 1,
+                userSelect: 'none',
+              }}>"</div>
+
+              {/* Stars */}
+              <div style={{ display: 'flex', gap: 3, marginBottom: 20 }}>
+                {[...Array(review.rating)].map((_, i) => <StarIcon key={i} />)}
               </div>
-              
-              {/* Review Comment */}
-              <p className="text-gray-700 text-lg mb-6 italic">
+
+              {/* Comment */}
+              <p style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 14,
+                fontWeight: 300,
+                fontStyle: 'italic',
+                color: 'rgba(255,255,255,0.75)',
+                lineHeight: 1.8,
+                marginBottom: 28,
+                position: 'relative',
+                zIndex: 1,
+              }}>
                 "{review.comment}"
               </p>
-              
-              {/* Reviewer Info */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-semibold text-velore-dark">{review.name}</p>
-                  <p className="text-sm text-gray-600">{review.product}</p>
-                </div>
-                <div className="w-12 h-12 bg-velore-gold rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">
+
+              {/* Divider */}
+              <div style={{ height: 1, background: 'rgba(212,175,55,0.12)', marginBottom: 20 }} />
+
+              {/* Reviewer */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{
+                    width: 38, height: 38,
+                    background: 'rgba(212,175,55,0.08)',
+                    border: '1px solid rgba(212,175,55,0.25)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: '#D4AF37',
+                  }}>
                     {review.name.charAt(0)}
-                  </span>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 13, fontWeight: 600, color: '#ffffff' }}>{review.name}</div>
+                    <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>{review.location}</div>
+                  </div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, fontStyle: 'italic', color: '#D4AF37' }}>{review.product}</div>
+                  <div style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 3 }}>✓ Verified</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Trust Badges */}
+        {/* Stats row */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: 1,
+            marginTop: '3rem',
+          }}
         >
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            <div className="flex items-center space-x-2">
-              <div className="text-3xl">🏆</div>
-              <span className="text-gray-700 font-medium">Award Winning</span>
+          {[
+            { value: '10,000+', label: 'Happy Customers' },
+            { value: '4.9/5', label: 'Average Rating' },
+            { value: '25+', label: 'Cities Served' },
+            { value: '100%', label: 'Authentic Luxury' },
+          ].map((stat) => (
+            <div key={stat.label} style={{
+              background: '#0f0f0f',
+              border: '1px solid rgba(212,175,55,0.1)',
+              padding: '2rem',
+              textAlign: 'center',
+            }}>
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 28,
+                fontWeight: 700,
+                color: '#D4AF37',
+                marginBottom: 8,
+              }}>{stat.value}</div>
+              <div style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: 10,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.35)',
+              }}>{stat.label}</div>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="text-3xl">⭐</div>
-              <span className="text-gray-700 font-medium">4.9/5 Rating</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="text-3xl">🚚</div>
-              <span className="text-gray-700 font-medium">Free Shipping</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="text-3xl">💎</div>
-              <span className="text-gray-700 font-medium">Premium Quality</span>
-            </div>
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>
