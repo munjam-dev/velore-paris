@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -29,18 +29,19 @@ const ContactPage = ({ cartItems }) => {
   return (
     <>
       <Header cartItemsCount={cartItemsCount} />
-      <main className="min-h-screen bg-[#050505]">
+      <main style={{ minHeight: '100vh', backgroundColor: '#050505' }}>
+        
         {/* Hero */}
-        <section className="bg-velore-dark text-white py-24 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-1/4 w-40 h-40 border-2 border-velore-gold rounded-full"></div>
-            <div className="absolute bottom-0 right-1/4 w-56 h-56 border-2 border-velore-gold rounded-full"></div>
+        <section style={{ position: 'relative', backgroundColor: '#0a0a0a', padding: '8rem 0', overflow: 'hidden', borderBottom: '1px solid rgba(212,175,55,0.1)' }}>
+          <div style={{ position: 'absolute', inset: 0, opacity: 0.1, pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', top: 40, left: '25%', width: 160, height: 160, border: '1px solid #D4AF37', borderRadius: '50%' }} />
+            <div style={{ position: 'absolute', bottom: -40, right: '25%', width: 220, height: 220, border: '1px solid #D4AF37', borderRadius: '50%' }} />
           </div>
-          <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="velore-container" style={{ textAlign: 'center', position: 'relative', zIndex: 10 }}>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <p className="text-velore-gold font-semibold uppercase tracking-widest text-sm mb-4">We're Here for You</p>
-              <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-4">Contact Us</h1>
-              <p className="text-gray-300 text-lg max-w-lg mx-auto">
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: 16 }}>We're Here for You</p>
+              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(3rem, 6vw, 4.5rem)', fontWeight: 700, color: '#ffffff', marginBottom: 20 }}>Contact Us</h1>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto', lineHeight: 1.8 }}>
                 Have a question, a compliment, or a special request? We'd love to hear from you.
               </p>
             </motion.div>
@@ -48,34 +49,31 @@ const ContactPage = ({ cartItems }) => {
         </section>
 
         {/* Contact Info + Form */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <section style={{ padding: '6rem 0' }}>
+          <div className="velore-container">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem' }}>
+              
               {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-3xl font-playfair font-bold text-velore-dark mb-8">Get in Touch</h2>
-                <div className="space-y-6 mb-10">
+              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: '#ffffff', marginBottom: '2rem' }}>Get in Touch</h2>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
                   {[
-                    { icon: '📧', label: 'Email', value: 'support@veloreparis.com', href: 'mailto:support@veloreparis.com' },
+                    { icon: '✉️', label: 'Email', value: 'support@veloreparis.com', href: 'mailto:support@veloreparis.com' },
                     { icon: '📞', label: 'Phone', value: '+91 9640680142', href: 'tel:+919640680142' },
                     { icon: '📍', label: 'Location', value: 'Hyderabad, Telangana, India' },
                     { icon: '🕒', label: 'Working Hours', value: 'Mon–Sat: 10:00 AM – 7:00 PM IST' },
                   ].map(item => (
-                    <div key={item.label} className="flex items-start space-x-4 bg-white rounded-xl p-5 shadow-sm">
-                      <span className="text-3xl">{item.icon}</span>
+                    <div key={item.label} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', background: '#0a0a0a', border: '1px solid rgba(212,175,55,0.1)', padding: '1.5rem', borderRadius: 8 }}>
+                      <span style={{ fontSize: 24, lineHeight: 1 }}>{item.icon}</span>
                       <div>
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">{item.label}</p>
+                        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: 4 }}>{item.label}</p>
                         {item.href ? (
-                          <a href={item.href} className="text-velore-dark font-medium hover:text-velore-gold transition-colors">
+                          <a href={item.href} style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 14, fontWeight: 500, color: '#ffffff', textDecoration: 'none', transition: 'color 0.3s' }} onMouseEnter={e => e.currentTarget.style.color = '#D4AF37'} onMouseLeave={e => e.currentTarget.style.color = '#ffffff'}>
                             {item.value}
                           </a>
                         ) : (
-                          <p className="text-velore-dark font-medium">{item.value}</p>
+                          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 14, fontWeight: 500, color: '#ffffff' }}>{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -84,20 +82,28 @@ const ContactPage = ({ cartItems }) => {
 
                 {/* Social Links */}
                 <div>
-                  <p className="font-semibold text-velore-dark mb-4">Follow Us</p>
-                  <div className="flex space-x-3">
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 12, fontWeight: 600, color: '#ffffff', marginBottom: '1rem' }}>Follow Us</p>
+                  <div style={{ display: 'flex', gap: '1rem' }}>
                     {[
-                      { name: 'Instagram', icon: '📷', color: 'hover:bg-pink-500' },
-                      { name: 'Facebook', icon: '📘', color: 'hover:bg-blue-600' },
-                      { name: 'Twitter', icon: '🐦', color: 'hover:bg-sky-500' },
-                      { name: 'YouTube', icon: '📺', color: 'hover:bg-red-600' },
+                      { name: 'Instagram', icon: '📷' },
+                      { name: 'Facebook', icon: '📘' },
+                      { name: 'Twitter', icon: '🐦' },
+                      { name: 'YouTube', icon: '📺' },
                     ].map(social => (
                       <a
                         key={social.name}
                         href="#"
-                        className={`w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm ${social.color} hover:text-white transition-all duration-300 hover:scale-110`}
+                        style={{
+                          width: 48, height: 48,
+                          background: '#0a0a0a', border: '1px solid rgba(212,175,55,0.2)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          borderRadius: '50%', textDecoration: 'none', fontSize: 20,
+                          transition: 'all 0.3s ease'
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = '#D4AF37'; e.currentTarget.style.transform = 'scale(1.1)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.transform = 'scale(1)'; }}
                       >
-                        <span className="text-xl">{social.icon}</span>
+                        {social.icon}
                       </a>
                     ))}
                   </div>
@@ -105,57 +111,50 @@ const ContactPage = ({ cartItems }) => {
               </motion.div>
 
               {/* Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-white rounded-2xl p-8 shadow-xl">
-                  <h2 className="text-2xl font-playfair font-bold text-velore-dark mb-6">Send a Message</h2>
+              <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+                <div style={{ background: '#0a0a0a', border: '1px solid rgba(212,175,55,0.15)', padding: '3rem', position: 'relative' }}>
+                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: '#ffffff', marginBottom: '2rem' }}>Send a Message</h2>
+                  
                   {submitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
-                    >
-                      <div className="text-6xl mb-4">✉️</div>
-                      <h3 className="text-2xl font-playfair font-bold text-velore-dark mb-2">Message Sent!</h3>
-                      <p className="text-gray-600">We'll get back to you within 24 hours.</p>
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center', padding: '3rem 0' }}>
+                      <div style={{ fontSize: 48, marginBottom: 16 }}>✉️</div>
+                      <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: '#ffffff', marginBottom: 8 }}>Message Sent!</h3>
+                      <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>We'll get back to you within 24 hours.</p>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">Your Name</label>
+                          <label style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Your Name</label>
                           <input
                             type="text"
                             value={form.name}
                             onChange={e => setForm({ ...form, name: e.target.value })}
                             required
                             placeholder="Ravi Kumar"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-velore-gold transition-colors"
+                            className="dark-input"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
+                          <label style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Email Address</label>
                           <input
                             type="email"
                             value={form.email}
                             onChange={e => setForm({ ...form, email: e.target.value })}
                             required
                             placeholder="ravi@email.com"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-velore-gold transition-colors"
+                            className="dark-input"
                           />
                         </div>
                       </div>
+                      
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">Subject</label>
+                        <label style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Subject</label>
                         <select
                           value={form.subject}
                           onChange={e => setForm({ ...form, subject: e.target.value })}
                           required
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-velore-gold transition-colors bg-white"
+                          className="dark-select"
                         >
                           <option value="">Select a subject</option>
                           <option value="order">Order Inquiry</option>
@@ -165,21 +164,21 @@ const ContactPage = ({ cartItems }) => {
                           <option value="other">Other</option>
                         </select>
                       </div>
+                      
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">Message</label>
+                        <label style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Message</label>
                         <textarea
                           value={form.message}
                           onChange={e => setForm({ ...form, message: e.target.value })}
                           required
                           rows={5}
                           placeholder="Tell us how we can help you..."
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-velore-gold transition-colors resize-none"
+                          className="dark-input"
+                          style={{ resize: 'none' }}
                         />
                       </div>
-                      <button
-                        type="submit"
-                        className="w-full bg-velore-gold text-white py-4 rounded-xl font-semibold text-lg hover:bg-yellow-600 transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02]"
-                      >
+                      
+                      <button type="submit" className="btn-gold" style={{ width: '100%', marginTop: '0.5rem' }}>
                         Send Message
                       </button>
                     </form>
@@ -191,19 +190,14 @@ const ContactPage = ({ cartItems }) => {
         </section>
 
         {/* FAQ */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-4xl font-playfair font-bold text-velore-dark mb-4">Frequently Asked Questions</h2>
-              <div className="w-24 h-1 bg-velore-gold mx-auto"></div>
+        <section style={{ padding: '6rem 0', backgroundColor: '#0a0a0a', borderTop: '1px solid rgba(212,175,55,0.1)' }}>
+          <div className="velore-container" style={{ maxWidth: 800 }}>
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <div className="section-label"><span>Questions?</span></div>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 700, color: '#ffffff' }}>Frequently Asked Questions</h2>
             </motion.div>
-            <div className="space-y-4">
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {FAQ_ITEMS.map((item, index) => (
                 <motion.div
                   key={index}
@@ -211,25 +205,30 @@ const ContactPage = ({ cartItems }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-[#050505] rounded-xl overflow-hidden shadow-sm"
+                  style={{ background: '#050505', border: '1px solid rgba(212,175,55,0.15)', overflow: 'hidden' }}
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between px-6 py-5 text-left"
+                    style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 2rem', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left' }}
                   >
-                    <span className="font-semibold text-velore-dark">{item.q}</span>
-                    <span className={`text-velore-gold text-2xl transition-transform duration-300 ${openFaq === index ? 'rotate-45' : ''}`}>+</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: 15, fontWeight: 600, color: '#ffffff' }}>{item.q}</span>
+                    <span style={{ color: '#D4AF37', fontSize: 24, transition: 'transform 0.3s', transform: openFaq === index ? 'rotate(45deg)' : 'none' }}>+</span>
                   </button>
-                  {openFaq === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="px-6 pb-5"
-                    >
-                      <p className="text-gray-700 leading-relaxed">{item.a}</p>
-                    </motion.div>
-                  )}
+                  
+                  <AnimatePresence>
+                    {openFaq === index && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div style={{ padding: '0 2rem 1.5rem', fontFamily: "'Montserrat', sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.8 }}>
+                          {item.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ))}
             </div>
